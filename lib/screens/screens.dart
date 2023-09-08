@@ -1,0 +1,14 @@
+export 'package:flutter_base_project/screens/onboarding/onboarding_screen/onboarding_screen.dart';
+export 'package:flutter_base_project/screens/onboarding/splash_screen/splash_screen.dart';
+export 'package:flutter_base_project/screens/auth/forgot_password_screen/forgot_password_screen.dart';
+export 'package:flutter_base_project/screens/auth/login_screen/login_screen.dart';
+export 'package:flutter_base_project/screens/auth/register_screen/register_screen.dart';
+export 'package:flutter_base_project/screens/my_account/faq_screen/faq_screen.dart';
+export 'package:flutter_base_project/screens/my_account/legal_screen/legal_screen.dart';
+export 'package:flutter_base_project/screens/my_account/my_account_screen/my_account_screen.dart';
+export 'package:flutter_base_project/screens/community/community_screen/community_screen.dart';
+export 'package:flutter_base_project/screens/discover/discover_screen/discover_screen.dart';
+export 'package:flutter_base_project/screens/home/home_screen/home_screen.dart';
+export 'package:flutter_base_project/screens/activity/activity_screen/activity_screen.dart';
+export 'package:flutter_base_project/screens/navigation/bottom_navigation/main_bottom_navigation_screen/main_screen.dart';
+export 'package:flutter_base_project/screens/navigation/unknown_route_screen/unknown_route_screen.dart';

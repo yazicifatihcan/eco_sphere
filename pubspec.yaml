@@ -1,0 +1,73 @@
+name: flutter_base_project
+description: A new Flutter project.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 2.0.0+2
+
+environment:
+  flutter: 3.7.10
+  sdk: ">=2.19.0 <3.0.0"
+
+dependencies:
+  animations: ^2.0.8
+  async: ^2.11.0
+  background_json_parser: ^1.0.4
+  cached_network_image: ^3.2.3
+  collection: any
+  connectivity: ^3.0.6
+  cupertino_icons: ^1.0.5
+  device_info_plus: ^9.0.1
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^2.0.6
+  get: ^4.6.5
+  http: ^0.13.5
+  intl: any
+  overlay_kit: ^1.0.8
+  package_info_plus: ^4.0.1
+  shared_preferences: ^2.1.1
+  syncfusion_flutter_charts: ^22.2.12
+  url_launcher: ^6.1.11
+
+dev_dependencies:
+  dart_code_metrics: ^5.5.1
+  flutter_lints: any
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+dependency_overrides:
+  async: ^2.8.2
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icons/
+    - assets/logos/
+    - assets/images/
+    - assets/fonts/
+
+  fonts:
+    - family: SofiaPro
+      fonts:
+        - asset: assets/fonts/sofia_pro/SofiaPro-Light.otf
+          weight: 300
+        - asset: assets/fonts/sofia_pro/SofiaPro-Regular.otf
+          weight: 400
+        - asset: assets/fonts/sofia_pro/SofiaPro-Medium.otf
+          weight: 500
+        - asset: assets/fonts/sofia_pro/SofiaPro-Bold.otf
+          weight: 700
+    - family: Peachi
+      fonts:
+        - asset: assets/fonts/peachi/Peachi-Light.otf
+          weight: 300
+        - asset: assets/fonts/peachi/Peachi-Regular.otf
+          weight: 400
+        - asset: assets/fonts/peachi/Peachi-Medium.otf
+          weight: 500
+        - asset: assets/fonts/peachi/Peachi-Bold.otf
+          weight: 700

@@ -1,0 +1,82 @@
+{
+    "project_info": {
+      "project_number": "960453175500",
+      "project_id": "ecosphere-f3790",
+      "storage_bucket": "ecosphere-f3790.appspot.com"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:960453175500:android:0e083b6825db2a7c037a69",
+          "android_client_info": {
+            "package_name": "cpv.eco.sphere.app"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "960453175500-l0bjnjpo6nlel68n70ifjpluq7uni3l7.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyD8mmv0kIHDyiWsTD_DOjIbp1R7BpnVE7A"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "960453175500-l0bjnjpo6nlel68n70ifjpluq7uni3l7.apps.googleusercontent.com",
+                "client_type": 3
+              },
+              {
+                "client_id": "960453175500-a4k2p7mpu6ponrrjb64i8ehqr00gdgrt.apps.googleusercontent.com",
+                "client_type": 2,
+                "ios_info": {
+                  "bundle_id": "cpv.eco.sphere.app"
+                }
+              }
+            ]
+          }
+        }
+      },
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:960453175500:android:770f2bd36a5d3621037a69",
+          "android_client_info": {
+            "package_name": "cpv.eco.sphere.app"
+          }
+        },
+        "oauth_client": [
+          {
+            "client_id": "960453175500-l0bjnjpo6nlel68n70ifjpluq7uni3l7.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyD8mmv0kIHDyiWsTD_DOjIbp1R7BpnVE7A"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "960453175500-l0bjnjpo6nlel68n70ifjpluq7uni3l7.apps.googleusercontent.com",
+                "client_type": 3
+              },
+              {
+                "client_id": "960453175500-a4k2p7mpu6ponrrjb64i8ehqr00gdgrt.apps.googleusercontent.com",
+                "client_type": 2,
+                "ios_info": {
+                  "bundle_id": "cpv.eco.sphere.app"
+                }
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "configuration_version": "1"
+  }

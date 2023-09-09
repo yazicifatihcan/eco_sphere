@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.sbcli.flutterBaseProject.RunnerTests</string>
+	<string>cpv.eco.sphere.app</string>
 	<key>PROJECT_ID</key>
 	<string>ecosphere-f3790</string>
 	<key>STORAGE_BUCKET</key>

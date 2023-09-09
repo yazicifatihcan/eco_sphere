@@ -65,11 +65,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyB6TXgnfUJCYneCrBY_FvONhbQ-gIpGa14',
-    appId: '1:960453175500:ios:2a09d25480128a6a037a69',
+    appId: '1:960453175500:ios:c409421ddc27d74b037a69',
     messagingSenderId: '960453175500',
     projectId: 'ecosphere-f3790',
     storageBucket: 'ecosphere-f3790.appspot.com',
-    iosClientId: '960453175500-tpafd155j55m18lc1gk2m7k2u8lmsn5j.apps.googleusercontent.com',
-    iosBundleId: 'com.example.sbcli.flutterBaseProject.RunnerTests',
+    iosClientId: '960453175500-a4k2p7mpu6ponrrjb64i8ehqr00gdgrt.apps.googleusercontent.com',
+    iosBundleId: 'cpv.eco.sphere.app',
   );
 }

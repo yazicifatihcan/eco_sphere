@@ -4,7 +4,6 @@ import 'package:flutter_base_project/app/constants/assets/assets.dart';
 import 'package:flutter_base_project/app/constants/enum/loading_status_enum.dart';
 import 'package:flutter_base_project/app/extensions/num_extension.dart';
 import 'package:flutter_base_project/app/extensions/widget_extension.dart';
-import 'package:flutter_base_project/app/theme/color/app_colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../../app/components/card/take_action_card.dart';
@@ -20,7 +19,6 @@ class Home extends StatelessWidget {
     final controller = Get.find<HomeController>();
     return Scaffold(
       key: controller.scaffoldKey,
-      // floatingActionButton: FloatingActionButton(onPressed: controller.abc),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: false,
@@ -54,11 +52,7 @@ class Home extends StatelessWidget {
                         padding: const EdgeInsets.all(paddingXL),
                         child: Column(
                           children: [
-                            SvgPicture.asset(
-                              greenLeafIcon,
-                              height: 200,
-                              width: 200,
-                            ),
+                            Image.network(controller.getUsersCurrentLevel().imageUrl!),
                             const SizedBox(
                               height: paddingM,
                             ),

@@ -9,10 +9,12 @@ import 'package:flutter_base_project/app/model/response/levels_response_model.da
 import 'package:flutter_base_project/app/model/response/user_info_model.dart';
 import 'package:flutter_base_project/screens/navigation/bottom_navigation/bottom_navigation_bar_item/controller/bottom_navigation_bar_controller.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 import '../../../../app/bl/general.dart';
 import '../../../../app/components/bottom_sheet/general_information_bottom_sheet.dart';
 import '../../../../app/components/dialog/loading_progress.dart';
 import '../../../../app/constants/enum/loading_status_enum.dart';
+import '../../../../app/constants/enum/type_enum.dart';
 import '../../../../app/model/response/user_activity_response_model.dart';
 import '../../../../core/exception/app_exception.dart';
 import '../../../../core/i10n/i10n.dart';
@@ -177,7 +179,7 @@ class HomeController extends GetxController with StateBottomSheetMixin {
 
   LevelsResponseModel getUsersCurrentLevel(){
     try{
-      return allLevels.firstWhere((element) => element.co2Amount!<currentUser.savedCo2!);}
+      return allLevels.lastWhere((element) => element.co2Amount!<currentUser.savedCo2!);}
     catch(e){
       return allLevels[0];
     }
@@ -196,44 +198,35 @@ class HomeController extends GetxController with StateBottomSheetMixin {
 
   Future<void> abc() async{
 
-  //   final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  //     ced.forEach((element) async{ 
-  //       final d = const Uuid().v4();
-  //       final e = AllActivitiesResponseModel().fromJson(element);
+      ced.forEach((element) async{ 
+        final d = const Uuid().v4();
+        final e = AllActivitiesResponseModel().fromJson(element);
 
-  //       await firestore.collection(FirebaseTablesEnum.DAILY_TASKS.name).doc(d).set(
-  //         AllActivitiesResponseModel(
-  //           id:d,
-  //           amount: e.amount,
-  //           category: e.category,
-  //           dailyLimit: 1,
-  //           imageUrl: e.imageUrl,
-  //           name: e.name
-  //         ).toJson()
-  //       );
-  //     });
-  // }
+        await firestore.collection(FirebaseTablesEnum.DAILY_TASKS.name).doc(d).set(
+          AllActivitiesResponseModel(
+            id:d,
+            amount: e.amount,
+            category: e.category,
+            dailyLimit: 1,
+            imageUrl: e.imageUrl,
+            name: e.name
+          ).toJson()
+        );
+      });
+  }
 }
-}
+
 
 final List<Map<String, dynamic>> ced = [
   {
-    'name': 'Dance me to end of love',
+    'name': 'Deleting files on the cloud',
     'category': {
       'id': 'a8aaa843-c8af-4e72-b7bd-5f7fe960d40e',
       'name': 'Transport',
     },
     "image_url": 'https://cdn-icons-png.flaticon.com/128/2918/2918598.png',
-    "amount":3,
-  },
-  {
-    'name': 'Shopping on Gucci',
-    'category': {
-      'id': '97874659-d55f-4cae-8a76-dbfe63eec6c4',
-      'name': 'Shopping',
-    },
-    "image_url": 'https://cdn-icons-png.flaticon.com/128/11488/11488025.png',
     "amount":1,
   },
 ];

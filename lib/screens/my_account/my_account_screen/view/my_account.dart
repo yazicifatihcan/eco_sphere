@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_base_project/app/components/button/clckable_text.dart';
+import 'package:flutter_base_project/app/extensions/num_extension.dart';
+import 'package:flutter_base_project/app/extensions/widget_extension.dart';
 import 'package:flutter_base_project/app/extensions/widgets_scale_extension.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
+import '../../../../app/components/button/base_button.dart';
 import '../../../../app/components/button/two_option_switch_button.dart';
 import '../../../../app/components/card/achievement_card.dart';
 import '../../../../app/components/card/field_tile.dart';
@@ -45,7 +48,10 @@ class MyAccount extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: paddingXL),
-                      const AchievementCard(),
+                      AchievementCard(
+                        userInfo: controller.currentUser,
+                        userLevel: controller.getUsersCurrentLevel(),
+                      ),
                       const SizedBox(height: paddingXL),
                       Obx(()=>TwoOptionSwitchButton(
                         firstTitle: 'Footprint',
@@ -58,49 +64,82 @@ class MyAccount extends StatelessWidget {
                       const SizedBox(height: paddingXS),
                       Center(child: ClickableText(onTap: controller.onTapHowToCalculate, text: 'How do we calculate it?',textStyle: s10W800Primary,)),
                       const SizedBox(height: paddingXS),
-                      Stack(
-                        alignment: Alignment.center,
+                      Obx(()=>Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          SfCircularChart(
-                            palette: controller.graphColorPalette,
-                            margin: EdgeInsets.zero,
-                            series: [
-                              DoughnutSeries<ChartData, String>(
-                                innerRadius: "90",
-                                cornerStyle: CornerStyle.bothFlat,
-                                radius: "130",
-                                dataSource: controller.chartData,
-                                xValueMapper: (ChartData data, _) => data.x,
-                                yValueMapper: (ChartData data, _) => data.y,
-                              )
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              SfCircularChart(
+                                palette: controller.graphColorPalette,
+                                margin: EdgeInsets.zero,
+                                series: [
+                                  DoughnutSeries<ChartData, String>(
+                                    innerRadius: "90",
+                                    cornerStyle: CornerStyle.bothFlat,
+                                    radius: "130",
+                                    dataSource: controller.chartData,
+                                    xValueMapper: (ChartData data, _) => data.x,
+                                    yValueMapper: (ChartData data, _) => data.y,
+                                  )
+                                ],
+                              ),
+                              Positioned(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      controller.currentUser.savedCo2!.removeTrailingZeros(),
+                                      style: s31W700DarkPeachi,
+                                    ),
+                                    Text(
+                                      'Kg CO2',
+                                      style: s20W500Dark,
+                                    )
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                          Positioned(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  '5.79',
-                                  style: s31W700DarkPeachi,
-                                ),
-                                Text('CO2e TONS',style: s20W500Dark,)
-                              ],
-                            ),
+                          Flexible(
+                            child: ListView.separated(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => ChartLegendItem(
+                                      title: controller.chartData[index].x,
+                                      color: controller.graphColorPalette[index],
+                                    ),
+                                separatorBuilder: (content, index) => const SizedBox(
+                                      height: paddingXXXS,
+                                    ),
+                                itemCount: controller.chartData.length),
                           ),
                         ],
+                      ).isVisible(controller.selectTab==0),),
+                      Center(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: paddingM),
+                            Text(controller.userActivities.length.toString(),style: s31W700PrimaryPeachi,),
+                            Text('Actions are done!',style: s16W700Dark,),
+                            const SizedBox(height: paddingXL),
+                            Text(
+                              'You saved ${controller.currentUser.savedCo2!.removeTrailingZeros()} Kg CO2',
+                              style: s16W700Dark,
+                            ),
+                          ],
+                        ).isVisible(controller.selectTab==1),
                       ),
-                      Flexible(
-                        child: ListView.separated(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) => ChartLegendItem(
-                                  title: controller.chartData[index].x,
-                                  color: controller.graphColorPalette[index],
-                                ),
-                            separatorBuilder: (content, index) => const SizedBox(
-                                  height: paddingXXXS,
-                                ),
-                            itemCount: controller.chartData.length),
+                      const SizedBox(height: paddingXL),
+                      BaseButton.primary(
+                        onTap: () {},
+                        txt: 'Update Your NFT',
+                      ),
+                      const SizedBox(height: paddingXXXS),
+                      BaseButton.secondary(
+                        onTap: () {},
+                        txt: 'Mint Your NFT',
                       ),
                       const SizedBox(height: paddingXL),
                       Text(

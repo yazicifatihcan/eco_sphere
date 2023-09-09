@@ -2,15 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base_project/app/extensions/widget_extension.dart';
 import 'package:flutter_base_project/screens/my_account/my_account_screen/view/components/how_to_calculate_bottom_sheet.dart';
 import 'package:get/get.dart';
+import '../../../../app/bl/general.dart';
 import '../../../../app/components/bottom_sheet/general_information_bottom_sheet.dart';
 import '../../../../app/components/dialog/loading_progress.dart';
 import '../../../../app/constants/enum/loading_status_enum.dart';
 import '../../../../app/constants/enum/type_enum.dart';
 import '../../../../app/controllers/general/session_service.dart';
 import '../../../../app/mixin/state_bottom_sheet_mixin.dart';
+import '../../../../app/model/response/activity_response_model.dart';
+import '../../../../app/model/response/levels_response_model.dart';
+import '../../../../app/model/response/user_activity_response_model.dart';
+import '../../../../app/model/response/user_info_model.dart';
 import '../../../../app/navigation/route/route.dart';
 import '../../../../app/navigation/route/route_factory.dart';
 import '../../../../app/theme/color/app_colors.dart';
+import '../../../../core/exception/app_exception.dart';
+import '../../../../core/i10n/i10n.dart';
 import '../view/components/contact_us_bottom_sheet.dart';
 import '../view/model/chart_data.dart';
 
@@ -24,6 +31,9 @@ class MyAccountController extends GetxController with StateBottomSheetMixin {
   final Rx<LoadingStatus> _loadingStatus = Rx(LoadingStatus.Init);
   final Rx<List<ChartData>> _chartData = Rx([]);
   final Rx<int> _selectTab = Rx(0);
+  final Rx<List<UserActivityResponseModel>> _userActivities = Rx([]);
+  final Rx<List<LevelsResponseModel>> _allLevels = Rx([]);
+  final Rx<UserInfoModel> _currentUser = Rx(UserInfoModel());
   
 
   LoadingStatus get loadingStatus => _loadingStatus.value;
@@ -34,6 +44,15 @@ class MyAccountController extends GetxController with StateBottomSheetMixin {
 
   int get selectTab => _selectTab.value;
   set selectTab(int value) => _selectTab.value = value;
+
+  List<UserActivityResponseModel> get userActivities => _userActivities.value;
+  set userActivities(List<UserActivityResponseModel> value) => _userActivities.value = value;
+
+  List<LevelsResponseModel> get allLevels => _allLevels.value;
+  set allLevels(List<LevelsResponseModel> value) => _allLevels.value = value;
+
+  UserInfoModel get currentUser => _currentUser.value;
+  set currentUser(UserInfoModel value) => _currentUser.value = value;
 
   List<Color> graphColorPalette = [
     AppColor.primary,
@@ -49,7 +68,9 @@ class MyAccountController extends GetxController with StateBottomSheetMixin {
       loadingStatus = LoadingStatus.Loading;
       LoadingProgress.start();
       await getCurrentUser();
+      await getCurrentUserActivities();
       await getChartData();
+      await getAllLevels();
       loadingStatus = LoadingStatus.Loaded;
       LoadingProgress.stop();
     } catch (e) {
@@ -59,18 +80,62 @@ class MyAccountController extends GetxController with StateBottomSheetMixin {
     }
   }
 
-  Future<void> getCurrentUser() async {
-    // final response = await General().getCurrentUser();
-    // if (response.status == BaseModelStatus.Ok) {
-    //   sessionService.currentUser = response.data!;
-    //   currentUser = response.data!;
-    // } else {
-    //   throw AppException(response.message ?? AppLocalization.getLabels.defaultErrorMessage);
-    // }
+  Future<void> getAllLevels() async {
+    final response = await General().getAllLevels();
+    if (response.status == BaseModelStatus.Ok) {
+      allLevels = response.data!;
+    } else {
+      throw AppException(response.message ?? AppLocalization.getLabels.defaultErrorMessage);
+    }
   }
 
-  Future<void> getChartData()async{
-    chartData = List.generate(dummyChartData.length, (index) => dummyChartData[index]);
+
+
+  Future<void> getCurrentUserActivities() async {
+    final response = await General().getAllCurrentUserActivities();
+    if (response.status == BaseModelStatus.Ok) {
+      userActivities = response.data!;
+    } else {
+      throw AppException(response.message ?? AppLocalization.getLabels.defaultErrorMessage);
+    }
+  }
+
+  Future<void> getCurrentUser() async {
+    final response = await General().getCurrentUser();
+    if (response.status == BaseModelStatus.Ok) {
+      sessionService.currentUser = response.data!;
+      currentUser = response.data!;
+    } else {
+      throw AppException(response.message ?? AppLocalization.getLabels.defaultErrorMessage);
+    }
+  }
+
+  LevelsResponseModel getUsersCurrentLevel(){
+    try{
+      return allLevels.lastWhere((element) => element.co2Amount!<currentUser.savedCo2!);}
+    catch(e){
+      return allLevels[0];
+    }
+  }
+
+  Future<void> getChartData() async {
+    Map<String, List<AllActivitiesResponseModel>> categorizedActivities = {};
+
+    for (var activity in userActivities) {
+      final category = activity.activity!.category!.name!;
+      categorizedActivities.putIfAbsent(category, () => []);
+      categorizedActivities[category]!.add(activity.activity!);
+    }
+
+    categorizedActivities.forEach((key, value) {
+      double y = 0;
+      for (var element in value) {
+        y = y + element.amount!;
+      }
+      chartData.add(ChartData(key, y));
+    });
+
+    chartData = chartData;
   }
 
   void unfocus() => FocusScope.of(context).unfocus();
@@ -180,17 +245,13 @@ Future<void> sendContactRequest(String email,String content) async {
   }
 
   Future<void> logout()async{
-    // final response = await General().logout();
-    // if (response.status != BaseModelStatus.Ok) {
-    //   throw AppException(response.message ?? AppLocalization.getLabels.defaultErrorMessage);
-    // } 
+    await sessionService.logOut();
+    MyRouteFactory().restartApp();
   }
 
   Future<void> deleteAccount() async {
-    // final response = await General().deleteCurrentUser();
-    // if (response.status != BaseModelStatus.Ok) {
-    //   throw AppException(response.message ?? AppLocalization.getLabels.defaultErrorMessage);
-    // }
+    await sessionService.logOut();
+    MyRouteFactory().restartApp();
   }
 
   void onTapTryAgain() {

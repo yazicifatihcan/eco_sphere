@@ -35,11 +35,7 @@ class SessionService extends GetxController {
 
   /// Kullanıcının authentice olup olmadığını local de kontrol eder auth ise true döner
   bool isUserLogin() {
-    if (_loggedIn.value == null) {
-      bool value = LocaleManager.instance.getBoolValue(CacheKey.loggedIn) ?? false;
-      _loggedIn.value = value;
-    }
-    return _loggedIn.value!;
+    return LocaleManager.instance.getBoolValue(CacheKey.loggedIn) ?? false;
   }
 
   Future<void> setLoggedIn(bool value) async {

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/app/extensions/num_extension.dart';
 import 'package:flutter_base_project/app/extensions/widgets_scale_extension.dart';
+import 'package:flutter_base_project/app/model/response/levels_response_model.dart';
+import 'package:flutter_base_project/app/model/response/user_info_model.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../constants/assets/assets.dart';
@@ -9,8 +12,10 @@ import 'image_avatar.dart';
 
 class AchievementCard extends StatelessWidget {
   final Color? bgColor;
+  final UserInfoModel userInfo;
+  final LevelsResponseModel userLevel;
 
-  const AchievementCard({super.key, this.bgColor});
+  const AchievementCard({super.key, this.bgColor, required this.userLevel,required this.userInfo});
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -32,41 +37,41 @@ class AchievementCard extends StatelessWidget {
                       const SizedBox(
                         width: paddingXS,
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '@Marek',
-                            style: s16W700Dark,
-                          ),
-                          const SizedBox(height: paddingXXXXS),
-                          Text(
-                            'Level 1',
-                            style: s16W400Dark,
-                          )
-                        ],
+                      Flexible(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              userInfo.email!,
+                              style: s16W700Dark,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: paddingXXXXS),
+                            Text(
+                              'Level ${userLevel.level}',
+                              style: s16W400Dark,
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
                   const SizedBox(
-                    height: paddingXS,
+                    height: paddingXXXS,
                   ),
                   Text(
-                    'The Seed',
+                    userLevel.name!,
                     style: s31W700PrimaryPeachi,
                   ),
                   Text(
-                    '5.79 CO2e tons',
+                    '${userInfo.savedCo2!.removeTrailingZeros()} CO2e Kg',
                     style: s16W700Dark,
                   ),
                 ],
               ),
             ),
-            SvgPicture.asset(
-              greenLeafIcon,
-              height: 120,
-              width: 120,
-            )
+            Image.network(userLevel.imageUrl!,height: 100,width: 100,),
           ],
         ),
       ),

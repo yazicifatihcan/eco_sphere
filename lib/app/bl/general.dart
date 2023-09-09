@@ -82,6 +82,27 @@ class General extends SessionHeaderModel {
     }
   }
 
+  Future<BaseHttpModel<List<UserInfoModel>>> getAllUsers() async {
+    try {
+      final CollectionReference<Map<String, dynamic>> collectionRef =
+          firestore.collection(FirebaseTablesEnum.USERS.name);
+      final response = await collectionRef.get();
+      List<UserInfoModel> allActivities = response.docs
+          .map(
+            (e) => UserInfoModel.fromJson(
+              e.data(),
+            ),
+          )
+          .toList();
+      return BaseHttpModel(status: BaseModelStatus.Ok, data: allActivities);
+    } on FirebaseException catch (e) {
+      return BaseHttpModel(status: BaseModelStatus.Error, message: e.toString());
+    } catch (e) {
+      return BaseHttpModel(status: BaseModelStatus.Error);
+    }
+  }
+
+
   Future<BaseHttpModel> addUserActivity(UserActivityResponseModel userActivityResponseModel) async {
     try {
       await firestore.collection(FirebaseTablesEnum.USER_ACTIVITIES.name).add(userActivityResponseModel.toJson());

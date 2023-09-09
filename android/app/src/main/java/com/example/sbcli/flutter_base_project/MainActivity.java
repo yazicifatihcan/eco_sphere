@@ -1,4 +1,4 @@
-package com.example.sbcli.flutter_base_project;
+package cpv.eco.sphere.app;
 
 import io.flutter.embedding.android.FlutterActivity;
 

@@ -10,5 +10,5 @@ export 'package:flutter_base_project/screens/community/community_screen/communit
 export 'package:flutter_base_project/screens/discover/discover_screen/discover_screen.dart';
 export 'package:flutter_base_project/screens/home/home_screen/home_screen.dart';
 export 'package:flutter_base_project/screens/activity/activity_screen/activity_screen.dart';
-export 'package:flutter_base_project/screens/navigation/bottom_navigation/main_bottom_navigation_screen/main_screen.dart';
 export 'package:flutter_base_project/screens/navigation/unknown_route_screen/unknown_route_screen.dart';
+export 'package:flutter_base_project/screens/navigation/bottom_navigation/main_bottom_navigation_screen/main_screen.dart';

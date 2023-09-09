@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import '../../constants/enum/cache_key_enum.dart';
 import '../../libs/locale_manager/locale_manager.dart';
-import '../../model/response/auth/user_info_model.dart';
+import '../../model/response/user_info_model.dart';
 
 /*
 Uygulamada ziyaretçinin ya da üyenin aktif tüm oturum bilgileri yer alacak:
@@ -57,11 +57,11 @@ class SessionService extends GetxController {
   }
 
   /// Kullanıcı giriş yapılıdığında çağırılır
-  Future<void> logIn(GetUserInfoModel _currentUser) async {
-    currentUser = _currentUser.data!;
+  Future<void> logIn(UserInfoModel _currentUser) async {
+    currentUser = _currentUser;
     await Future.wait([
       setLoggedIn(true),
-      setUserToken(_currentUser.token!),
+      setUserToken(_currentUser.uuid!),
     ]);
   }
 }

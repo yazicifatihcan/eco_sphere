@@ -13,16 +13,20 @@ dependencies:
   async: ^2.11.0
   background_json_parser: ^1.0.4
   cached_network_image: ^3.2.3
+  cloud_firestore: ^4.9.1
   collection: any
   connectivity: ^3.0.6
   cupertino_icons: ^1.0.5
   device_info_plus: ^9.0.1
+  firebase_auth: ^4.9.0
+  firebase_core: ^2.15.1
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.6
   get: ^4.6.5
+  google_sign_in: ^6.1.5
   http: ^0.13.5
   intl: any
   overlay_kit: ^1.0.8
@@ -30,6 +34,7 @@ dependencies:
   shared_preferences: ^2.1.1
   syncfusion_flutter_charts: ^22.2.12
   url_launcher: ^6.1.11
+  uuid: ^4.0.0
 
 dev_dependencies:
   dart_code_metrics: ^5.5.1

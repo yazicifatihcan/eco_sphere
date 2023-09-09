@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_base_project/app/extensions/context_extension.dart';
 import 'package:flutter_base_project/app/navigation/route/route_factory.dart';
 import 'package:get/get.dart';
+import '../../../../app/bl/general.dart';
 import '../../../../app/constants/enum/cache_key_enum.dart';
+import '../../../../app/constants/enum/loading_status_enum.dart';
 import '../../../../app/controllers/general/session_service.dart';
 import '../../../../app/libs/locale_manager/locale_manager.dart';
 import '../../../../app/mixin/state_bottom_sheet_mixin.dart';
@@ -45,7 +47,7 @@ class SplashController extends GetxController with StateBottomSheetMixin {
     // } catch (e) {}
 
     try {
-      await checkInternet();
+      // await checkInternet();
 
       
 
@@ -80,12 +82,12 @@ class SplashController extends GetxController with StateBottomSheetMixin {
   }
 
   Future<void> _getUser(SessionService sessionService) async {
-    // final response = await General().getCurrentUser();
-    // if (response.status == BaseModelStatus.Ok) {
-    //   await sessionService.logIn(loggedInUser: response.data!, token: sessionService.getUserToken()!);
-    // } else {
-    //   throw UserLoginException();
-    // }
+    final response = await General().getCurrentUser();
+    if (response.status == BaseModelStatus.Ok) {
+      await sessionService.logIn(response.data!);
+    } else {
+      throw UserLoginException();
+    }
   }
 
   // Future<String> _getRemoteVersion() async {

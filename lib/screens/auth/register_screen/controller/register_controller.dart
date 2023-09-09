@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/app/model/response/user_info_model.dart';
 import 'package:get/get.dart';
 import '../../../../app/components/dialog/loading_progress.dart';
 import '../../../../app/constants/enum/type_enum.dart';
 import '../../../../app/controllers/general/session_service.dart';
+import '../../../../app/libs/firebase/firebae_auth_manager.dart';
 import '../../../../app/mixin/state_bottom_sheet_mixin.dart';
 import '../../../../app/navigation/route/route.dart';
 
@@ -42,7 +45,8 @@ class RegisterController extends GetxController with StateBottomSheetMixin {
     if (fRegister.currentState!.validate()) {
       try {
         LoadingProgress.start();
-        await register();
+        final user = await register();
+        await sessionService.logIn(user);
         LoadingProgress.stop();
         Navigator.pushNamedAndRemoveUntil(context, MainScreensEnum.mainScreen.path, (route) => false,arguments: true);
       } catch (e) {
@@ -52,20 +56,17 @@ class RegisterController extends GetxController with StateBottomSheetMixin {
     }
   }
 
-  Future<void> register() async {
-    // final response = await General().signUp(
-    //   signUpRequestModel: SignUpRequestModel(
-    //     email: cEmail.text.toLowerCase(),
-    //     password: cPassword.text,
-    //     username: cUsername.text,
-    //     zipCode: cZipcode.text,
-    //     fcmToken: fcmToken ?? '1',
-    //   ),
-    // );
-    // if (response.status == BaseModelStatus.Ok) {
-    //   await sessionService.logIn(loggedInUser: response.data!.user!, token: response.data!.accessToken!);
-    // } else {
-    //   throw AppException(response.message ?? AppLocalization.getLabels.defaultErrorMessage);
-    // }
+  Future<UserInfoModel> register() async {
+   try {
+      final userCredentials = await FirebaseAuthManager().signUpWithEmailAndPassword(
+        cEmail.text,
+        cPassword.text
+      );
+      final user = await FirebaseAuthManager().generateUserInfoModelFromCredential(userCredentials,SignUpWaysEnum.EMAIL);
+      await FirebaseAuthManager().saveUserToFirebase(user);
+      return user;
+    } catch (e) {
+      rethrow;
+    }
   }
 }

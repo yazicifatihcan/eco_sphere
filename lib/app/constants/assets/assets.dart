@@ -41,6 +41,8 @@ String termsAndConditionsIcon = iconAssetsPath + 'terms_and_conditions_icon.svg'
 String faqCloseIcon = iconAssetsPath + 'faq_close_icon.svg';
 String faqOpenIcon = iconAssetsPath + 'faq_open_icon.svg';
 String greenLeafIcon = iconAssetsPath + 'green_leaf.svg';
+String addIcon = iconAssetsPath + 'add_icon.svg';
+String googleIcon = iconAssetsPath + 'google_icon.svg';
 
 
 //IMAGES

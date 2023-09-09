@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_base_project/app/components/other/progress_widget.dart';
 import 'package:flutter_base_project/app/constants/assets/assets.dart';
 import 'package:flutter_base_project/app/constants/enum/loading_status_enum.dart';
+import 'package:flutter_base_project/app/extensions/num_extension.dart';
+import 'package:flutter_base_project/app/extensions/widget_extension.dart';
+import 'package:flutter_base_project/app/theme/color/app_colors.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../../app/components/card/take_action_card.dart';
@@ -17,6 +20,7 @@ class Home extends StatelessWidget {
     final controller = Get.find<HomeController>();
     return Scaffold(
       key: controller.scaffoldKey,
+      // floatingActionButton: FloatingActionButton(onPressed: controller.abc),
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: false,
@@ -25,7 +29,7 @@ class Home extends StatelessWidget {
           child: Row(
             children: [
               Flexible(
-                child: Text('Hi Marek ', style: s31W700DarkPeachi),
+                child: Text('Hi ', style: s31W700DarkPeachi),
               ),
               Text('👋🏽', style: s31W700DarkPeachi),
               const SizedBox(
@@ -59,19 +63,21 @@ class Home extends StatelessWidget {
                               height: paddingM,
                             ),
                             Text(
-                              'Level 1',
+                              'Level ${controller.getUsersCurrentLevel().level}',
                               style: s20W700DarkPeachi,
                             ),
                             const SizedBox(
                               height: paddingXXXS,
                             ),
-                            Text('The Seed', style: s20W700DarkPeachi),
+                            Text(controller.getUsersCurrentLevel().name!, style: s20W700DarkPeachi),
                             const SizedBox(
                               height: paddingXS,
                             ),
                             Column(
                               children: [
-                                const ProgressWidget(total: 40000, current: 8000),
+                                ProgressWidget(
+                                    total: controller.getUsersNextLevel().co2Amount!.toDouble(),
+                                    current: controller.currentUser.savedCo2!),
                                 const SizedBox(
                                   height: paddingXXXS,
                                 ),
@@ -79,11 +85,11 @@ class Home extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      '8000',
+                                      controller.currentUser.savedCo2!.removeTrailingZeros(),
                                       style: s16W400Dark,
                                     ),
                                     Text(
-                                      '40000',
+                                      controller.getUsersNextLevel().co2Amount!.toDouble().removeTrailingZeros(),
                                       style: s16W400Dark,
                                     )
                                   ],
@@ -94,7 +100,7 @@ class Home extends StatelessWidget {
                               height: paddingXS,
                             ),
                             InviteFriendCard(
-                              onTap: () {},
+                              onTap: controller.onTapTakeAction,
                             ),
                           ],
                         ),
@@ -112,25 +118,39 @@ class Home extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           final item = controller.dailyTasks[index];
-                          return Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(paddingXL),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(item.title!,style: s16W700Dark,),
-                                  const SizedBox(height: paddingXS,),
-                                  Text(item.content!,style: s16W400Dark,),
-                                  const SizedBox(height: paddingXS,),
-                                  Row(
-                                    children: [
-                                      SvgPicture.asset(greenLeafIcon,height: 24,width: 24,),
-                                      const SizedBox(width: paddingXXXS,),
-                                      Text(item.savedCo2!,style: s16W700Primary,),
-                                    ],
+                          return  GestureDetector(
+                            onTap: ()=>controller.onTapAddActivity(item),
+                            child: Stack(
+                              children: [
+                                Card(
+                                  color: controller.calculateRemainings(item) <= 0
+                                      ? Theme.of(context).colorScheme.primary.withOpacity(0.3)
+                                      : null,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(paddingXL),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(item.category!.name!,style: s20W700DarkPeachi,),
+                                              const SizedBox(height: paddingXXXS,),
+                                              Text(item.name!,style: s16W400Dark,)
+                                            ],
+                                          ),
+                                        ),
+                                        Image.network(item.imageUrl!,height: 40,width: 40,),
+                                      ],
+                                    ),
                                   ),
-                                ],
-                              ),
+                                ),
+                                Positioned(
+                                    left: paddingXXS,
+                                    top: paddingXXS,
+                                    child: const CircleAvatar(radius: 10,child: Icon(Icons.done,size: 12,)).isVisible(controller.calculateRemainings(item) <= 0)),
+                              ],
                             ),
                           );
                         },

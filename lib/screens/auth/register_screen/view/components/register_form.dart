@@ -16,10 +16,6 @@ class _RegisterForm extends StatelessWidget {
               children: [
                 Text('Signup', style: s31W700DarkPeachi),
                 const SizedBox(height: paddingXL),
-                InputFieldWithIcon.username(
-                  controller: controller.cUsername,
-                ),
-                const SizedBox(height: paddingXL),
                 InputFieldWithIcon.email(controller: controller.cEmail),
                 const SizedBox(height: paddingXL),
                 InputFieldWithIcon.password(controller: controller.cPassword),

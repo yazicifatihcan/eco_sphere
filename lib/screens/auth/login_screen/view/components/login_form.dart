@@ -2,7 +2,7 @@ part of '../login.dart';
 
 class _LoginForm extends StatelessWidget {
   final LoginController controller;
-  _LoginForm({required this.controller});
+  const _LoginForm({required this.controller});
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -46,6 +46,11 @@ class _LoginForm extends StatelessWidget {
                   onTap: controller.onTapIDontHaveAnAccount,
                   txt: 'Dont\'t have an account? Signup!',
                 ),
+                // BaseButton.withIcon(
+                //   svgPath: googleIcon,
+                //   onTap: controller.onTapLoginWithGoogle,
+                //   txt: 'Login with Google',
+                // ),
               ],
             ),
           ),

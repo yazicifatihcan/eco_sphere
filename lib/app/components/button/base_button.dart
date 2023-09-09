@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../constants/other/padding_and_radius_size.dart';
 import '../../navigation/route/route_factory.dart';
@@ -79,6 +80,27 @@ class BaseButton extends StatelessWidget {
         width: double.infinity,
         buttonBgColor: isDisabled ? Colors.black12 :  Theme.of(MyRouteFactory.context).colorScheme.primary,
         txtColor: isDisabled ? Colors.black26 : null,
+      );
+
+  factory BaseButton.withIcon({
+    VoidCallback? onTap,
+    required String svgPath,
+    required String txt,
+    bool isDisabled=false,
+  }) =>
+      BaseButton(
+        onTap:  onTap,
+        buttonBgColor: isDisabled ? Colors.black12 :  Colors.transparent,
+        buttonBorderColor: isDisabled ? Colors.transparent : Theme.of(MyRouteFactory.context).colorScheme.onSurface,
+        txtColor: isDisabled ? Colors.black26 : Theme.of(MyRouteFactory.context).colorScheme.onSurface,
+        widget: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(svgPath),
+            const SizedBox(width: paddingXS,),
+            Text(txt,style:s20W800White.copyWith(color: Theme.of(MyRouteFactory.context).colorScheme.onSurface))
+          ],
+        ),
       );
 
   factory BaseButton.secondary({

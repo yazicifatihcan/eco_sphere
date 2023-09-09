@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ProgressWidget extends StatelessWidget {
-  final int total;
-  final int current;
+  final double total;
+  final double current;
 
   const ProgressWidget({
     super.key,

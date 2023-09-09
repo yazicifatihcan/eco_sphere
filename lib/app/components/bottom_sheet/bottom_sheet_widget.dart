@@ -26,8 +26,8 @@ abstract class BottomSheetWidget<T> extends StatelessWidget {
   }) : super(key: key);
 
   Future<T?> showBottomSheet({BuildContext? context}) => openBottomSheet(
-        context: context,
         barrierColor: barrierColor,
+        context: context,
         backgroundColor: backgroundColor,
         barrierDismissible: barrierDismissible,
         shape: shape,

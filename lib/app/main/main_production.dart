@@ -15,7 +15,7 @@ void main() {
   HttpUrl.baseUrl = '';
 
   bootstrap(
-    const App(title: 'Sbcli Example App'),
+    const App(title: 'EcoSphere'),
   );
 }
 

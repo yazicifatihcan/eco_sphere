@@ -162,7 +162,7 @@ class HomeController extends GetxController with StateBottomSheetMixin {
       GeneralInformationBottomSheet(
       title: item.name!,
       subtitle: 'Thanks for reducing your footprint. This action will increase your saved CO2 amount by ${item.amount} Kg CO2. Are you sure you want to proceed ?',
-      firstBtnText: 'Yes',
+      firstBtnText: 'Claim',
       secondBtnText: 'No',
       onTapFirstBtn: () {
         Navigator.pop(context);

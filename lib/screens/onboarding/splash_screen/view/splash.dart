@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_base_project/app/constants/other/padding_and_radius_size.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../../../app/constants/assets/assets.dart';
@@ -20,7 +21,9 @@ class Splash extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset(summerCircleLogo),
+            SvgPicture.asset(greenLeafIcon,height: 100,width: 100,),
+            const SizedBox(height: paddingM,),
+            const Center(child: CircularProgressIndicator(),),
           ],
         ),
       ),

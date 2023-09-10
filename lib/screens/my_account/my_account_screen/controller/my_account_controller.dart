@@ -201,7 +201,7 @@ Future<void> sendContactRequest(String email,String content) async {
   Future<void> onTapLogout() async {
     GeneralInformationBottomSheet(
       title: 'Logout',
-      subtitle: 'Are you sure you want to log out of SummerCircle’s app?',
+      subtitle: 'Are you sure you want to log out of EcoSphere’s app?',
       firstBtnText: 'Yes, log me out',
       onTapFirstBtn: onTapApproveLogoutBtn,
     ).openBottomSheet(context: context);
